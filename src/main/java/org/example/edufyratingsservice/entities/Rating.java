@@ -1,4 +1,4 @@
-package org.example.edufyratingsservice.configs.entities;
+package org.example.edufyratingsservice.entities;
 
 import jakarta.persistence.*;
 
@@ -17,11 +17,19 @@ public class Rating {
     @Column(length = 25, nullable = false)
     private Long userId;
 
+    @Column(length = 50, nullable = false)
+    private String mediaType;
+
+    @Column(length = 25, nullable = false)
+    private String genre;
+
     public enum RatingType {THUMBSUP, THUMBSDOWN}
 
-    public Rating(Long userId, RatingType ratingType) {
+    public Rating(Long userId, RatingType ratingType, String mediaType, String genre) {
         this.userId = userId;
         this.ratingType = ratingType;
+        this.mediaType = mediaType;
+        this.genre = genre;
     }
 
     public Rating() {}
@@ -50,12 +58,30 @@ public class Rating {
         this.userId = userId;
     }
 
+    public String getMediaType() {
+        return mediaType;
+    }
+
+    public void setMediaType(String mediaType) {
+        this.mediaType = mediaType;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
     @Override
     public String toString() {
         return "Rating{" +
                 "id=" + id +
                 ", ratingType=" + ratingType +
                 ", userId=" + userId +
+                ", mediaType='" + mediaType +
+                ", genre='" + genre +
                 '}';
     }
 }
