@@ -2,14 +2,11 @@ package org.example.edufyratingsservice.controllers;
 
 import jakarta.validation.Valid;
 import org.example.edufyratingsservice.dtos.RatingDTO;
-import org.example.edufyratingsservice.entities.Rating;
 import org.example.edufyratingsservice.enums.MediaType;
 import org.example.edufyratingsservice.services.RatingsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,7 +15,7 @@ import java.util.List;
 @RequestMapping("/ratings")
 public class RatingsController {
 
-    private RatingsServiceImpl ratingsService;
+    private final RatingsServiceImpl ratingsService;
 
     @Autowired
     public RatingsController(RatingsServiceImpl ratingsService) {
