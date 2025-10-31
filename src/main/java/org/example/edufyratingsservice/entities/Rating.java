@@ -1,6 +1,8 @@
 package org.example.edufyratingsservice.entities;
 
 import jakarta.persistence.*;
+import org.example.edufyratingsservice.enums.MediaType;
+import org.example.edufyratingsservice.enums.RatingType;
 
 @Entity
 public class Rating {
@@ -17,19 +19,20 @@ public class Rating {
     @Column(length = 25, nullable = false)
     private Long userId;
 
+    @Enumerated(EnumType.STRING)
     @Column(length = 50, nullable = false)
-    private String mediaType;
+    private MediaType mediaType;
 
-    @Column(length = 25, nullable = false)
-    private String genre;
+    @Column(length=25,nullable = false)
+    private Long mediaId;
 
-    public enum RatingType {THUMBSUP, THUMBSDOWN}
 
-    public Rating(Long userId, RatingType ratingType, String mediaType, String genre) {
+
+    public Rating(Long userId, RatingType ratingType, MediaType mediaType, Long mediaId) {
         this.userId = userId;
         this.ratingType = ratingType;
         this.mediaType = mediaType;
-        this.genre = genre;
+        this.mediaId = mediaId;
     }
 
     public Rating() {}
@@ -58,20 +61,20 @@ public class Rating {
         this.userId = userId;
     }
 
-    public String getMediaType() {
+    public MediaType getMediaType() {
         return mediaType;
     }
 
-    public void setMediaType(String mediaType) {
+    public void setMediaType(MediaType mediaType) {
         this.mediaType = mediaType;
     }
 
-    public String getGenre() {
-        return genre;
+    public Long getMediaId() {
+        return mediaId;
     }
 
-    public void setGenre(String genre) {
-        this.genre = genre;
+    public void setMediaId(Long mediaId) {
+        this.mediaId = mediaId;
     }
 
     @Override
@@ -81,7 +84,7 @@ public class Rating {
                 ", ratingType=" + ratingType +
                 ", userId=" + userId +
                 ", mediaType='" + mediaType +
-                ", genre='" + genre +
+                ", mediaId='" + mediaId +
                 '}';
     }
 }

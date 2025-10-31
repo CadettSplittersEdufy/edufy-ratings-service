@@ -1,19 +1,22 @@
 package org.example.edufyratingsservice.services;
 
-import org.example.edufyratingsservice.entities.Rating;
+import org.example.edufyratingsservice.dtos.RatingDTO;
+import org.example.edufyratingsservice.enums.MediaType;
 
 import java.util.List;
 
 public interface RatingsService {
-    Rating newRating(Rating rating);
+    RatingDTO newRating(RatingDTO ratingDTO);
 
-    List<Rating> getAllRatings();
+    List<RatingDTO> getAllRatings();
 
-    List<Rating> getRatingsByUserId(Long userId);
+    List<RatingDTO> getUsersRatings(Long userId);
 
-    List<Rating> getRatingsByGenre(String genre);
+    List<RatingDTO> getUsersRatingsByMediaType(Long userId, MediaType mediaType);
 
-    Rating updateRating(Rating rating);
+    List<RatingDTO> getRatingsByMediaType(MediaType mediaType, Long mediaId);
 
-    void deleteRating(Long id);
+    RatingDTO updateRating(RatingDTO rating);
+
+    void deleteRating(Long ratingId);
 }
