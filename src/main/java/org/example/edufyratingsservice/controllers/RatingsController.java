@@ -44,16 +44,25 @@ public class RatingsController {
         return ResponseEntity.ok(ratings);
     }
 
-    @GetMapping("/getbyuser/{userId}")
-    public ResponseEntity<List<RatingDTO>> getAllUsersRatings(@PathVariable Long userId) {
-        List<RatingDTO> ratings = ratingsService.getUsersRatings(userId);
+    @GetMapping("/getlikesbyuser/{userId}")
+    public ResponseEntity<List<RatingDTO>> getUsersLikesRatings(@PathVariable Long userId) {
+        List<RatingDTO> ratings = ratingsService.getUsersLikes(userId);
         if (ratings.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.ok(ratings);
     }
 
-    @GetMapping("/ratingbyuserandmediatype/{userId}/{mediaType}")
+    @GetMapping("/getdislikesbyuser/{userId}")
+    public ResponseEntity<List<RatingDTO>> getUsersDislikesRatings(@PathVariable Long userId) {
+        List<RatingDTO> ratings = ratingsService.getUsersDislikes(userId);
+        if (ratings.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(ratings);
+    }
+
+    @GetMapping("/getbyuserandmediatype/{userId}/{mediaType}")
     public ResponseEntity<List<RatingDTO>> getRatingsByGenre(@PathVariable Long userId, @PathVariable MediaType mediaType) {
         List<RatingDTO> ratings = ratingsService.getUsersRatingsByMediaType(userId, mediaType);
         if (ratings.isEmpty()) {
@@ -62,7 +71,7 @@ public class RatingsController {
         return ResponseEntity.ok(ratings);
     }
 
-    @GetMapping("/ratingsbymedia/{mediaType}/{mediaId}")
+    @GetMapping("/getbymedia/{mediaType}/{mediaId}")
     public ResponseEntity<List<RatingDTO>> getRatingsByMedia(@PathVariable MediaType mediaType, @PathVariable Long mediaId) {
         List<RatingDTO> ratings = ratingsService.getRatingsByMediaType(mediaType, mediaId);
         if (ratings.isEmpty()) {
@@ -71,7 +80,7 @@ public class RatingsController {
         return ResponseEntity.ok(ratings);
     }
 
-    @PutMapping("/changeRating")
+    @PutMapping("/changerating")
     public ResponseEntity<RatingDTO> updateRating(@RequestBody RatingDTO rating) {
 
         return ResponseEntity.ok(ratingsService.updateRating(rating));

@@ -3,6 +3,7 @@ package org.example.edufyratingsservice.services;
 import org.example.edufyratingsservice.dtos.RatingDTO;
 import org.example.edufyratingsservice.entities.Rating;
 import org.example.edufyratingsservice.enums.MediaType;
+import org.example.edufyratingsservice.enums.RatingType;
 import org.example.edufyratingsservice.repositories.RatingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -51,6 +52,16 @@ public class RatingsServiceImpl implements RatingsService {
     @Override
     public List<RatingDTO> getUsersRatings(Long userId) {
         List<Rating> ratings = ratingRepository.findByUserId(userId);
+        return convertToDTOList(ratings);
+    }
+
+    public List<RatingDTO> getUsersLikes(Long userId){
+        List<Rating> ratings = ratingRepository.findRatingsByUserIdAndRatingType(userId, RatingType.LIKE);
+        return convertToDTOList(ratings);
+    }
+
+    public List<RatingDTO> getUsersDislikes(Long userId){
+        List<Rating> ratings = ratingRepository.findRatingsByUserIdAndRatingType(userId, RatingType.DISLIKE);
         return convertToDTOList(ratings);
     }
 
