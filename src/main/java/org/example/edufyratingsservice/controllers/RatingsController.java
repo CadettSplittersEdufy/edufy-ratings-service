@@ -71,9 +71,18 @@ public class RatingsController {
         return ResponseEntity.ok(ratings);
     }
 
-    @GetMapping("/getbymedia/{mediaType}/{mediaId}")
-    public ResponseEntity<List<RatingDTO>> getRatingsByMedia(@PathVariable MediaType mediaType, @PathVariable Long mediaId) {
-        List<RatingDTO> ratings = ratingsService.getRatingsByMediaType(mediaType, mediaId);
+    @GetMapping("/getlikesbymedia/{mediaType}/{mediaId}")
+    public ResponseEntity<List<RatingDTO>> getLikesByMedia(@PathVariable MediaType mediaType, @PathVariable Long mediaId) {
+        List<RatingDTO> ratings = ratingsService.getLikesByMediaType(mediaType, mediaId);
+        if (ratings.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(ratings);
+    }
+
+    @GetMapping("/getdislikesbymedia/{mediaType}/{mediaId}")
+    public ResponseEntity<List<RatingDTO>> getDislikesByMedia(@PathVariable MediaType mediaType, @PathVariable Long mediaId) {
+        List<RatingDTO> ratings = ratingsService.getDislikesByMediaType(mediaType, mediaId);
         if (ratings.isEmpty()) {
             return ResponseEntity.noContent().build();
         }

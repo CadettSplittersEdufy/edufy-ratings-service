@@ -14,7 +14,7 @@ public interface RatingsService {
 
     List<RatingDTO> getUsersRatingsByMediaType(Long userId, MediaType mediaType);
 
-    List<RatingDTO> getRatingsByMediaType(MediaType mediaType, Long mediaId);
+    List<RatingDTO> getLikesByMediaType(MediaType mediaType, Long mediaId);
 
     RatingDTO updateRating(RatingDTO rating);
 

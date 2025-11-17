@@ -72,11 +72,15 @@ public class RatingsServiceImpl implements RatingsService {
     }
 
     @Override
-    public List<RatingDTO> getRatingsByMediaType(MediaType mediaType, Long mediaId){
-        List<Rating> ratings = ratingRepository.findByMediaTypeAndMediaId(mediaType, mediaId);
+    public List<RatingDTO> getLikesByMediaType(MediaType mediaType, Long mediaId){
+        List<Rating> ratings = ratingRepository.findByMediaTypeAndMediaIdAndRatingType(mediaType, mediaId, RatingType.LIKE);
         return convertToDTOList(ratings);
     }
 
+    public List<RatingDTO> getDislikesByMediaType(MediaType mediaType, Long mediaId){
+        List<Rating> ratings = ratingRepository.findByMediaTypeAndMediaIdAndRatingType(mediaType, mediaId, RatingType.DISLIKE);
+        return convertToDTOList(ratings);
+    }
 
     @Override
     public RatingDTO updateRating(RatingDTO rating) {
