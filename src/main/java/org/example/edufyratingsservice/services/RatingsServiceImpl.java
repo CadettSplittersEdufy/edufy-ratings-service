@@ -7,7 +7,6 @@ import org.example.edufyratingsservice.enums.RatingType;
 import org.example.edufyratingsservice.repositories.RatingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -46,8 +45,7 @@ public class RatingsServiceImpl implements RatingsService {
     @Override
     public List<RatingDTO> getAllRatings() {
         List<Rating> ratings = ratingRepository.findAll();
-        List<RatingDTO> ratingDTOs = convertToDTOList(ratings);
-        return ratingDTOs;
+        return convertToDTOList(ratings);
     }
 
     @Override
