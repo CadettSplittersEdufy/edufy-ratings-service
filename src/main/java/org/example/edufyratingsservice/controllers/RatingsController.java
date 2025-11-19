@@ -27,6 +27,7 @@ public class RatingsController {
         return "This is the ratings controller test";
     }
 
+
     @PostMapping("/add")
     public ResponseEntity<RatingDTO> addRating(
             @Valid @RequestBody RatingDTO ratingDTO) {
