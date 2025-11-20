@@ -19,7 +19,6 @@ public class RatingDTO {
     @NotNull(message = "Media ID is required")
     private Long mediaId;
 
-    private String message;
 
     public RatingDTO() {}
 
@@ -68,14 +67,6 @@ public class RatingDTO {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
     }
 
     @Override
