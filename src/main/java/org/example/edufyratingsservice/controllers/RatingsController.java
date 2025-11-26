@@ -75,7 +75,6 @@ public class RatingsController {
         return ResponseEntity.ok(ratings);
     }
 
-    @PermitAll
     @GetMapping("/getlikesbymedia/{mediaType}/{mediaId}")
     public ResponseEntity<List<RatingDTO>> getLikesByMedia(@PathVariable MediaType mediaType, @PathVariable Long mediaId) {
         List<RatingDTO> ratings = ratingsService.getLikesByMediaType(mediaType, mediaId);
@@ -100,7 +99,7 @@ public class RatingsController {
 
         return ResponseEntity.ok(ratingsService.updateRating(rating));
     }
-
+    @PreAuthorize("hasRole('edufy_ADMIN')")
     @DeleteMapping("/deleterating/{id}")
     public ResponseEntity<String> deleteRating(@PathVariable Long id) {
         ratingsService.deleteRating(id);
