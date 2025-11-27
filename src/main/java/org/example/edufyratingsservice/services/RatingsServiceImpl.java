@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -45,6 +44,7 @@ public class RatingsServiceImpl implements RatingsService {
     @Override
     public List<RatingDTO> getAllRatings() {
         List<Rating> ratings = ratingRepository.findAll();
+        System.out.println("Size of ratings list: " + ratings.size());
         return convertToDTOList(ratings);
     }
 

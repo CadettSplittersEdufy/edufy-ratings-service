@@ -1,5 +1,6 @@
 package org.example.edufyratingsservice.controllers;
 
+import jakarta.annotation.security.PermitAll;
 import jakarta.validation.Valid;
 import org.example.edufyratingsservice.dtos.RatingDTO;
 import org.example.edufyratingsservice.enums.MediaType;
@@ -7,10 +8,11 @@ import org.example.edufyratingsservice.services.RatingsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
+@PreAuthorize("hasAnyRole('edufy_USER','edufy_ADMIN')")
 @RestController
 @RequestMapping("/ratings")
 public class RatingsController {
@@ -38,7 +40,8 @@ public class RatingsController {
 
     @GetMapping("/getall")
     public ResponseEntity<List<RatingDTO>> getAllRatings() {
-        List<RatingDTO> ratings = ratingsService.getAllRatings();
+        List<RatingDTO> ratings = ratingsService.getAllRatings()
+                ;
         if (ratings.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
@@ -81,6 +84,7 @@ public class RatingsController {
         return ResponseEntity.ok(ratings);
     }
 
+    @PermitAll
     @GetMapping("/getdislikesbymedia/{mediaType}/{mediaId}")
     public ResponseEntity<List<RatingDTO>> getDislikesByMedia(@PathVariable MediaType mediaType, @PathVariable Long mediaId) {
         List<RatingDTO> ratings = ratingsService.getDislikesByMediaType(mediaType, mediaId);
@@ -95,7 +99,7 @@ public class RatingsController {
 
         return ResponseEntity.ok(ratingsService.updateRating(rating));
     }
-
+    @PreAuthorize("hasRole('edufy_ADMIN')")
     @DeleteMapping("/deleterating/{id}")
     public ResponseEntity<String> deleteRating(@PathVariable Long id) {
         ratingsService.deleteRating(id);
